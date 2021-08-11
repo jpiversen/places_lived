@@ -25,11 +25,11 @@ cities <- st_sfc(
 ) %>%
   st_sf(
     name = c(
-      'Mannheim, Germany',
-      'Nice, France', 
-      "Lausanne, Switzerland", 
-      "Oslo, Norway", 
-      "Bergen, Norway"
+      'Mannheim',
+      'Nice', 
+      "Lausanne", 
+      "Oslo", 
+      "Bergen"
     )
   ) %>%
   st_set_crs("+proj=longlat") %>%
@@ -37,6 +37,7 @@ cities <- st_sfc(
   distinct()
 
 col <- "navyblue"
+nudge_y <- 0.15
 
 p <- 
   ggplot(data = world) +
@@ -47,7 +48,9 @@ p <-
     data = cities,
     aes(label = label), 
     size = 5,
-    nudge_y = 0.50,
+    nudge_y = nudge_y,
+    vjust = 0,
+    # hjust = 0,
     color = col,
     family = "fontawesome-webfont"
   ) +
@@ -55,11 +58,14 @@ p <-
     data = cities,
     aes(label = name), 
     # position = "jitter",
-    nudge_y = -0.50,
-    size = 3,
+    nudge_y = -nudge_y,
+    vjust = 1,
+    # hjust = 1,
+    size = 4,
+    label.padding = unit(0.15, "lines"),
     color = col
   ) +
-  coord_sf(crs = "+proj=longlat", xlim = c(-32, 45), ylim = c(40, 65)) +
+  coord_sf(crs = "+proj=longlat", xlim = c(-25, 40), ylim = c(40, 65)) +
   theme_minimal() +
   theme(
     panel.grid = element_line(color = 'transparent'),
@@ -68,4 +74,4 @@ p <-
     axis.title = element_blank()
   )
 
-ggplot2::ggsave("cities_lived.png", plot = p)
+ggplot2::ggsave("cities_lived.png", plot = p, width = 1051, height = 550, units = "px")
