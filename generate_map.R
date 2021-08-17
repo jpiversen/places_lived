@@ -72,6 +72,8 @@ p <-
     plot.margin = margin(-1, 0, -1, 0, "cm"),
     axis.text = element_blank(),
     axis.title = element_blank()
-  )
+  ) + 
+  theme(panel.background = element_rect(fill = 'white'))
+
 
 ggplot2::ggsave("cities_lived.png", plot = p, width = 1051, height = 550, units = "px")
